@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# IEX CLOUD API TOKEN
+secrets.py
