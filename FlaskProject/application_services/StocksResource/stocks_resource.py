@@ -4,6 +4,8 @@ import requests
 
 from application_services.BaseApplicationResource import BaseApplicationResource
 from secrets import IEX_CLOUD_API_TOKEN
+import database_services.RDBService as d_service
+
 
 class StocksResource(BaseApplicationResource):
 
@@ -16,7 +18,7 @@ class StocksResource(BaseApplicationResource):
             yield lst[i:i + n]
 
     @classmethod
-    def get_stocks(cls):
+    def update_stocks(cls):
         stocks = pd.read_csv('sp_500_stocks.csv')
         symbol_groups = list(cls.chunks(stocks['Ticker'], 100))
         symbol_strings = []
@@ -27,4 +29,9 @@ class StocksResource(BaseApplicationResource):
             data = requests.get(batch_api_call_url).json()
             for symbol in symbol_string.split(','):
                 print(data[symbol]['company']['companyName'],symbol,data[symbol]['quote']['latestPrice'])
-        return 1
+        return data
+
+    @classmethod
+    def get_by_template(cls, name_prefix):
+        res = d_service.get_table("userresource", "users")
+        return res
