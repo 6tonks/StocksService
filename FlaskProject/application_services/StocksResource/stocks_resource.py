@@ -28,10 +28,13 @@ class StocksResource(BaseApplicationResource):
             batch_api_call_url = f'https://sandbox.iexapis.com/stable/stock/market/batch?symbols={symbol_string}&types=company,quote&token={IEX_CLOUD_API_TOKEN}'
             data = requests.get(batch_api_call_url).json()
             for symbol in symbol_string.split(','):
-                print(data[symbol]['company']['companyName'],symbol,data[symbol]['quote']['latestPrice'])
-        return data
+                company_name = data[symbol]['company']['companyName']
+                latest_price = data[symbol]['quote']['latestPrice']
+                res = d_service.update_stock("stocksresource", "stocks",
+                                                       symbol, company_name, latest_price)
+        return res
 
     @classmethod
-    def get_by_template(cls, name_prefix):
-        res = d_service.get_table("userresource", "users")
+    def get_table(cls, name_prefix):
+        res = d_service.get_table("stocksresource", "stocks")
         return res

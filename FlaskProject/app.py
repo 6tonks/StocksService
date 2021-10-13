@@ -19,9 +19,10 @@ def update_stocks():  # put application's code here
 
 @app.route('/users')
 def get_users():
-    res = StocksResource.get_by_template(None)
+    res = StocksResource.get_table(None)
     rsp = Response(json.dumps(res, default=str), status=200, content_type="application/json")
     return rsp
+
 
 if __name__ == '__main__':
     app.run()

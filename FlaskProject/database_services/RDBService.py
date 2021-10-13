@@ -13,6 +13,22 @@ def _get_db_connection():
     return db_connection
 
 
+def update_stock(db_schema, table_name, stock_ticker, stock_name, stock_price):
+    conn = _get_db_connection()
+    cur = conn.cursor()
+
+    sql = "INSERT INTO " + db_schema + "." + table_name + " (ticker, stock_name, latest_price) " \
+          + "VALUES ('%s', '%s', %s)" %(stock_ticker, stock_name, stock_price) + " ON DUPLICATE KEY UPDATE " + \
+          "stock_name='%s', latest_price='%s'" %(stock_name, stock_price)
+    print("SQL Statement = " + cur.mogrify(sql, None))
+
+    res = cur.execute(sql)
+    res = conn.commit()
+
+    conn.close()
+
+    return res
+
 def get_table(db_schema, table_name):
 
     conn = _get_db_connection()
