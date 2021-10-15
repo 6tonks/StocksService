@@ -34,7 +34,26 @@ class StocksResource(BaseApplicationResource):
                                                        symbol, company_name, latest_price)
         return res
 
+
     @classmethod
-    def get_table(cls, name_prefix):
+    def get_by_ticker_prefix(cls, ticker_prefix):
+        res = d_service.get_by_prefix("stocksresource", "stocks",
+                                      "ticker", ticker_prefix)
+        return res
+
+
+    @classmethod
+    def delete_by_ticker_prefix(cls, ticker_prefix):
+        res = d_service.delete_by_prefix("stocksresource", "stocks",
+                                      "ticker", ticker_prefix)
+        return res
+
+    @classmethod
+    def clear_stocks_table(cls):
+        res = d_service.clear_table("stocksresource", "stocks")
+        return res
+
+    @classmethod
+    def get_stocks_table(cls):
         res = d_service.get_table("stocksresource", "stocks")
         return res
