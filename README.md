@@ -1,1 +1,3 @@
 # StocksService
+- Stocks microservice allows users to use the API to get stock's latest price using ```/stocks/<ticker>``` path, update the Amazon AWS RDS MySQL Database with most recent stock data from IEX cloud API using the ```/stocks/update_all``` path and more...
+- Hosted on EC2 using docker http://ec2-54-165-25-117.compute-1.amazonaws.com:5000/stocks
