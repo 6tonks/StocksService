@@ -26,34 +26,34 @@ class StocksResource(BaseApplicationResource):
             symbol_strings.append(','.join(symbol_groups[i]))
         for symbol_string in symbol_strings:
             batch_api_call_url = f'https://sandbox.iexapis.com/stable/stock/market/batch?symbols={symbol_string}&types=company,quote&token={IEX_CLOUD_API_TOKEN}'
-            data = requests.get(batch_api_call_url).json()
+            data = requests.get(batch_api_call_url, verify=False).json()
             for symbol in symbol_string.split(','):
                 company_name = data[symbol]['company']['companyName']
                 latest_price = data[symbol]['quote']['latestPrice']
                 res = d_service.update_stock("stocksresource", "stocks",
                                                        symbol, company_name, latest_price)
-        return res
+        return res, 200
 
 
     @classmethod
     def get_by_ticker_prefix(cls, ticker_prefix):
         res = d_service.get_by_prefix("stocksresource", "stocks",
                                       "ticker", ticker_prefix)
-        return res
+        return res[0], 200
 
 
     @classmethod
     def delete_by_ticker_prefix(cls, ticker_prefix):
         res = d_service.delete_by_prefix("stocksresource", "stocks",
                                       "ticker", ticker_prefix)
-        return res
+        return res, 200
 
     @classmethod
     def clear_stocks_table(cls):
         res = d_service.clear_table("stocksresource", "stocks")
-        return res
+        return res, 200
 
     @classmethod
     def get_stocks_table(cls):
         res = d_service.get_table("stocksresource", "stocks")
-        return res
+        return res, 200
