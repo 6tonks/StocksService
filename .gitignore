@@ -130,3 +130,12 @@ dmypy.json
 
 # IEX CLOUD API TOKEN
 secrets.py
+
+# Pycharm
+.idea/
+/FlaskProject/.idea/
+
+# Docker
+AWS_DOCKER.pem
+env.list
+python-docker.tar

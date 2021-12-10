@@ -18,7 +18,7 @@ def welcome():
                 },
                 {
                     'rel': 'Trigger stock table update from IEX Cloud',
-                    'method': 'POST',
+                    'method': 'GET',
                     'href': '/api/stocks/update_all'
                 },
                 {
